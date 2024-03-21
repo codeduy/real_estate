@@ -12,6 +12,7 @@
         <module>RentalService</module>
         <module>ListingService</module>
         <module>EurekaServer</module>
+        <module>APIGateway</module>
     </modules>
 
     <properties>

@@ -7,5 +7,8 @@ import lombok.Data;
 @Builder
 public class RealEstate {
     private Long id;
-    private String name;
+    private String title;
+    private String RealEstateType;
+    private String phoneNumber;
+
 }

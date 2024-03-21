@@ -16,18 +16,23 @@ public class ListingController {
         var realEstate = RealEstate
                 .builder()
                 .id(1L)
-                .name("Lim's house").build();
+                .title("Title").build();
         var list = Arrays.asList(realEstate);
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<RealEstate> get(@PathVariable("id") Long id) {
+    public ResponseEntity<RealEstate> getDoc(@PathVariable("id") Long id) {
         // TODO: return all posts
         var realEstate = RealEstate
                 .builder()
                 .id(1L)
-                .name("Lim's house").build();
+                .title("Lim's house").build();
         return ResponseEntity.ok().body(realEstate);
+    }
+
+    @GetMapping("doc")
+    public ResponseEntity<String> getDoc() {
+        return ResponseEntity.ok().body("Return doc here");
     }
 }
