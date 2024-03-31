@@ -8,14 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/auth/")
 @AllArgsConstructor
 public class SecurityController {
 
     private final AuthService authService;
 
-    @PostMapping(value = "/register")
+    @PostMapping(value = "register")
     public ResponseEntity<AuthResponse> register(@RequestBody AuthRequest request) {
+        // work ok :))
         return ResponseEntity.ok(authService.register(request));
     }
 
