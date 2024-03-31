@@ -12,8 +12,15 @@ spring:
     gateway:
       routes:
         - id: ListingService
-          uri: lb://LISTINGSERVICE
+          uri: lb://ListingService
           predicates:
             - Path=/api/listing/**
+
+        - id: SecurityService
+          uri: lb://SecurityService
+          predicates:
+            - Path=/auth/**
   main:
     web-application-type: reactive
+
+

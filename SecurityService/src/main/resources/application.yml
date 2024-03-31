@@ -1,12 +1,15 @@
 server:
-  port: 9001
+  port: 9999
 eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
   instance:
     prefer-ip-address: on
-#    hostname: localhost
 spring:
   application:
-    name: ListingService
+    name: SecurityService
+
+jwt:
+  secret: MiAVzqUXy5Tfr1kVIGpPMiAVzqUXy5Tfr1kVIGpP
+  expiration: 86400
