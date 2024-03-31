@@ -1,26 +1,30 @@
 server:
-  port: 8081
+  port: 8080
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://127.0.0.1:8761/eureka
+  instance:
+    prefer-ip-address: on
+
 spring:
   application:
-    name: APIGateway
+    name: ApiGateway
 
-  cloud:
-    gateway:
-      routes:
-        - id: ListingService
-          uri: lb://ListingService
-          predicates:
-            - Path=/api/listing/**
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: ListingService
+#          uri: lb://ListingService
+#          predicates:
+#            - Path=/api/listing/**
+#
+#        - id: SecurityService
+#          uri: lb://SecurityService
+#          predicates:
+#            - Path=/auth/**
+#  main:
+#    web-application-type: reactive
 
-        - id: SecurityService
-          uri: lb://SecurityService
-          predicates:
-            - Path=/auth/**
-  main:
-    web-application-type: reactive
-
-
+jwt:
+  secret: MiAVzqUXy5Tfr1kVIGpPMiAVzqUXy5Tfr1kVIGpP
