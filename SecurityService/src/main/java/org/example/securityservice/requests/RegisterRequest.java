@@ -1,4 +1,4 @@
-package org.example.securityservice.entities;
+package org.example.securityservice.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthRequest {
-
+public class RegisterRequest {
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
-    private String name;
 }

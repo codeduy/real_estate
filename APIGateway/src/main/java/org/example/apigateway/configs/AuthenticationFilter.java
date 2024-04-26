@@ -32,7 +32,7 @@ public class AuthenticationFilter implements GatewayFilter {
                 return onError(exchange, HttpStatus.UNAUTHORIZED);
             }
 
-            final String token = request.getHeaders().getOrEmpty("Authorization").get(0);
+            final String token = request.getHeaders().getOrEmpty("Authorization").getFirst();
 
             if (jwtUtils.isExpired(token)) {
                 return onError(exchange, HttpStatus.UNAUTHORIZED);

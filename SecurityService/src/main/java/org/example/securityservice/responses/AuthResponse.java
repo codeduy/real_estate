@@ -1,4 +1,4 @@
-package org.example.securityservice.entities;
+package org.example.securityservice.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class AuthResponse {
-
     private String accessToken;
     private String refreshToken;
 }
