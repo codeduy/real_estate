@@ -42,7 +42,7 @@ public class AuthService implements UserDetailsService {
         // todo: add logic to fetch user from DB here
         return User.builder()
                 .id(1)
-                .username("admin")
+                .username("admin@gmail.com")
                 .password(passwordEncoder.encode("admin"))
                 .role(Role.USER)
                 .accountNonExpired(true)

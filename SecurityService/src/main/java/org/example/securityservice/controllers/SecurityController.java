@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 @RestController
-@RequestMapping("/auth/")
+@RequestMapping("/api/auth/")
 @AllArgsConstructor
 public class SecurityController {
 

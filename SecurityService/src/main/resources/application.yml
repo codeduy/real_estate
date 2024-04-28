@@ -9,7 +9,17 @@ eureka:
 spring:
   application:
     name: SecurityService
-
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/ms_auth
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
 jwt:
   secret: MiAVzqUXy5Tfr1kVIGpPMiAVzqUXy5Tfr1kVIGpP
   expiration: 86400
+
+
