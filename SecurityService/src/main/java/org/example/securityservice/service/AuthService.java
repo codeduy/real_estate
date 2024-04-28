@@ -4,6 +4,7 @@ package org.example.securityservice.service;
 import lombok.AllArgsConstructor;
 import org.example.securityservice.models.Role;
 import org.example.securityservice.models.User;
+import org.example.securityservice.repositories.UserRepository;
 import org.example.securityservice.requests.AuthenticateRequest;
 import org.example.securityservice.requests.RegisterRequest;
 import org.example.securityservice.responses.AuthResponse;
@@ -19,17 +20,29 @@ import org.springframework.web.client.RestTemplate;
 @AllArgsConstructor
 public class AuthService implements UserDetailsService {
 
-    private final RestTemplate restTemplate;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
     public AuthResponse register(RegisterRequest request) {
-        //do validation if user exists in DB
-        request.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
-//        UserVO registeredUser = restTemplate.postForObject("http://user-service/users", request, UserVO.class);
+        var userInDb = userRepository.findByUsername(request.getEmail());
+        if (userInDb.isPresent()) {
+            throw new RuntimeException("User already exists");
+        }
 
-        var userId = "userId";
-        var role = "role";
+        var user = User.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .username(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(Role.USER)
+                .build();
+
+        var createdUser = userRepository.save(user);
+
+        var userId = createdUser.getId().toString();
+        var role = createdUser.getRole().toString();
+
         String accessToken = jwtUtil.generate(userId, role, "ACCESS");
         String refreshToken = jwtUtil.generate(userId, role, "REFRESH");
 
@@ -39,16 +52,7 @@ public class AuthService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        // todo: add logic to fetch user from DB here
-        return User.builder()
-                .id(1)
-                .username("admin@gmail.com")
-                .password(passwordEncoder.encode("admin1234"))
-                .role(Role.USER)
-                .accountNonExpired(true)
-                .accountNonLocked(true)
-                .enabled(true)
-                .credentialsNonExpired(true)
-                .build();
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

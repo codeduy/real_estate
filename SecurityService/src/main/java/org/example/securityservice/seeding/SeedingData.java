@@ -3,7 +3,6 @@ package org.example.securityservice.seeding;
 import org.example.securityservice.models.Role;
 import org.example.securityservice.models.User;
 import org.example.securityservice.repositories.UserRepository;
-import org.example.securityservice.service.AuthService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
