@@ -28,16 +28,21 @@ public class JwtUtil {
     }
 
     public Claims getClaims(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(token).getBody();
+        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
 
     public Date getExpirationDate(String token) {
         return getClaims(token).getExpiration();
     }
 
-    public String generate(String userId, String role, String displayName, String tokenType) {
+    public String generate(String userId, String role, String displayName, String username, String tokenType) {
 
-        Map<String, String> claims = Map.of("id", userId, "role", role, "displayName", displayName);
+        Map<String, String> claims = Map.of(
+                "id", userId,
+                "role", role,
+                "displayName", displayName,
+                "username", username);
+
         long expMillis = "ACCESS".equalsIgnoreCase(tokenType)
                 ? Long.parseLong(expiration) * 1000
                 : Long.parseLong(expiration) * 1000 * 5;
@@ -59,6 +64,7 @@ public class JwtUtil {
                 (user.getId().toString(),
                 user.getRole().toString(),
                 user.getLastName(),
+                user.getUsername(),
                 tokenType);
     }
 

@@ -18,6 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/api/auth/")
 @AllArgsConstructor
@@ -49,5 +51,13 @@ public class SecurityController {
     @PostMapping(value = "register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(authService.register(request));
+    }
+
+    @GetMapping("info")
+    public ResponseEntity<User> getUser(@RequestHeader("Authorization") String header) {
+        String token = header.split("Bearer ")[1];
+        var username = jwtUtil.getClaims(token).get("username", String.class);
+        var user = (User) authService.loadUserByUsername(username);
+        return ResponseEntity.ok(user);
     }
 }
