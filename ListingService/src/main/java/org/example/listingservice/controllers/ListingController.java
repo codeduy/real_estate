@@ -1,23 +1,26 @@
-package org.example.listingservice;
+package org.example.listingservice.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.example.listingservice.models.RealEstate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/listing/")
 public class ListingController {
     @GetMapping
-    public ResponseEntity<List<RealEstate>> getAll() {
+    public ResponseEntity<List<RealEstate>> getAll(@RequestHeader("Authorization") String token) {
+        System.out.println(token);
+        // todo: call api gateway to get user info
         // TODO: return all posts
         var realEstate = RealEstate
                 .builder()
                 .id(1L)
-                .title("Title").build();
-        var list = Arrays.asList(realEstate);
+                .name("Title").build();
+        var list = List.of(realEstate);
         return ResponseEntity.ok().body(list);
     }
 
@@ -27,12 +30,7 @@ public class ListingController {
         var realEstate = RealEstate
                 .builder()
                 .id(1L)
-                .title("Lim's house").build();
+                .name("Lim's house").build();
         return ResponseEntity.ok().body(realEstate);
-    }
-
-    @GetMapping("doc")
-    public ResponseEntity<String> getDoc() {
-        return ResponseEntity.ok().body("Return doc here");
     }
 }

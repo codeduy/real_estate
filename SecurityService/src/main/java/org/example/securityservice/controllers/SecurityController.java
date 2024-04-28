@@ -7,13 +7,16 @@ import org.example.securityservice.requests.RegisterRequest;
 import org.example.securityservice.responses.AuthResponse;
 import org.example.securityservice.service.AuthService;
 import org.example.securityservice.service.JwtUtil;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 @RestController
 @RequestMapping("/auth/")
@@ -26,7 +29,6 @@ public class SecurityController {
 
     @PostMapping("login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthenticateRequest request) {
-
         try {
             var authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
@@ -39,21 +41,12 @@ public class SecurityController {
 
             return ResponseEntity.ok(new AuthResponse(accessToken, refreshToken));
         } catch (BadCredentialsException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(401).build();
         }
-
-
-
     }
-
 
     @PostMapping(value = "register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(authService.register(request));
-    }
-
-    @GetMapping
-    public String hello() {
-        return "Hello from Security Service";
     }
 }

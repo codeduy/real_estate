@@ -11,20 +11,16 @@ spring:
   application:
     name: ApiGateway
 
-#  cloud:
-#    gateway:
-#      routes:
-#        - id: ListingService
-#          uri: lb://ListingService
-#          predicates:
-#            - Path=/api/listing/**
-#
-#        - id: SecurityService
-#          uri: lb://SecurityService
-#          predicates:
-#            - Path=/auth/**
-#  main:
-#    web-application-type: reactive
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
 
 jwt:
   secret: MiAVzqUXy5Tfr1kVIGpPMiAVzqUXy5Tfr1kVIGpP

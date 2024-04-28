@@ -23,7 +23,7 @@ public class GatewayConfig {
                 .route("ListingService", r -> r.path("/api/listing/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://ListingService"))
-                .route("SecurityService", r -> r.path("/auth/**")
+                .route("SecurityService", r -> r.path("/api/auth/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://SecurityService"))
                 .build();
