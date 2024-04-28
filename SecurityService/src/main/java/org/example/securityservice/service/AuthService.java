@@ -40,11 +40,8 @@ public class AuthService implements UserDetailsService {
 
         var createdUser = userRepository.save(user);
 
-        var userId = createdUser.getId().toString();
-        var role = createdUser.getRole().toString();
-
-        String accessToken = jwtUtil.generate(userId, role, "ACCESS");
-        String refreshToken = jwtUtil.generate(userId, role, "REFRESH");
+        String accessToken = jwtUtil.generate(createdUser ,"ACCESS");
+        String refreshToken = jwtUtil.generate(createdUser,"REFRESH");
 
         return new AuthResponse(accessToken, refreshToken);
     }

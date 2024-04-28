@@ -36,8 +36,9 @@ public class SecurityController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             var username = (String) authentication.getName();
             var user = (User) authService.loadUserByUsername(username);
-            String accessToken = jwtUtil.generate(user.getId().toString(), user.getRole().toString(), "ACCESS");
-            String refreshToken = jwtUtil.generate(user.getId().toString(), user.getRole().toString(), "REFRESH");
+
+            String accessToken = jwtUtil.generate(user, "ACCESS");
+            String refreshToken = jwtUtil.generate(user, "REFRESH");
 
             return ResponseEntity.ok(new AuthResponse(accessToken, refreshToken));
         } catch (BadCredentialsException e) {

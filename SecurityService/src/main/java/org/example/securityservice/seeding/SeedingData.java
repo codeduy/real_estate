@@ -18,6 +18,8 @@ public class SeedingData {
         System.out.println("Seeding data...");
         return args -> {
             var admin = User.builder()
+                    .firstName("Huynh")
+                    .lastName("Liem")
                     .username("admin@gmail.com")
                     .password(passwordEncoder.encode("123456"))
                     .role(Role.ADMIN)
