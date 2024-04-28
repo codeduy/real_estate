@@ -43,7 +43,7 @@ public class AuthService implements UserDetailsService {
         return User.builder()
                 .id(1)
                 .username("admin@gmail.com")
-                .password(passwordEncoder.encode("admin"))
+                .password(passwordEncoder.encode("admin1234"))
                 .role(Role.USER)
                 .accountNonExpired(true)
                 .accountNonLocked(true)
